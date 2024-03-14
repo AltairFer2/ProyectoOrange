@@ -51,6 +51,7 @@
 
 	<!-- Modernizr JS -->
 	<script src="{{asset('assets/js/modernizr-2.6.2.min.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>

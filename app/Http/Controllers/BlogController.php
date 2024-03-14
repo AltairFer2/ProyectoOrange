@@ -42,7 +42,6 @@ public function edit($no_post)
 
 
 
-
     // Comprueba si la API devolvió una respuesta válida
     if($response->successful()) {
         return view('orange.admin.posts.edit', compact('post'));
@@ -54,7 +53,6 @@ public function edit($no_post)
 
 public function update(Request $request, $no_post)
 {
-
     // Validación de los datos enviados en el formulario
     $validated = $request->validate([
         'title' => 'required|string|max:255',

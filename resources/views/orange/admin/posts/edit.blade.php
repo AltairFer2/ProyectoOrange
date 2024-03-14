@@ -2,6 +2,7 @@
 @section('main_content')
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url({{asset('assets/images/img_bg_2.jpg')}});">
     <div class="overlay"></div>
@@ -51,56 +52,43 @@
         </form>
     </div>
 </section>
-
 <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        var hoy = new Date();
-        var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1).toString().padStart(2, '0') + '-' + hoy.getDate().toString().padStart(2, '0');
-        document.getElementById('created_at').value = fecha;
-    });
-</script>
-<script>
-$(document).ready(function(){
-    $('#createPostForm').on('submit', function(e){
-        e.preventDefault();
 
-        // Crear un objeto JavaScript con los datos del formulario.
-        var postData = {
-            title: $('#title').val(),
-            author: $('#author').val(),
-            content: $('#content').val(),
-            image: $('#image').val(),
-            created_at: $('#created_at').val(),
-            category: $('#category').val(),
-        };
+    $(document).ready(function () {
+$('#createPostForm').on('submit', function (e) {
+    e.preventDefault();
 
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: "PATCH", // Cambia a PATCH o PUT según lo que tu API espere
-            url: "http://localhost:3000/posts/" + {{ $post[0]['no_post'] }}, // Asegúrate de que esta es la URL correcta de tu API Laravel
-            data: JSON.stringify(postData),
-            contentType: "application/json",
-            dataType: 'json',
-            success: function(response){
-                console.log("Success response:", response);
-                $('#messageContainer').html('<div class="alert alert-success">Post actualizado con éxito!</div>');
-            },
-            error: function(error){
-                console.log("Error response:", error);
-                $('#messageContainer').html('<div class="alert alert-danger">Hubo un error al actualizar el post. Por favor, intenta de nuevo.</div>');
-            }
-        });
+    // Crear un objeto JavaScript con los datos del formulario.
+    var postData = {
+        title: $('#title').val(),
+        author: $('#author').val(),
+        content: $('#content').val(),
+        image: $('#image').val(),
+        created_at: $('#created_at').val(),
+        category: $('#category').val(),
+    };
+
+    console.log(postData);
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "PATCH",
+        url: "http://localhost:3000/posts/" + {{ $post[0]['no_post'] }}, // Asegúrate de que esta es la URL correcta de tu API Laravel
+    data: JSON.stringify(postData),
+    contentType: "application/json",
+    dataType: 'json',
+    success: function (response) {
+        console.log("Success response:", response);
+        $('#messageContainer').html('<div class="alert alert-success">Post actualizado con éxito!</div>');
+    },
+    error: function (error) {
+        console.log("Error response:", error);
+        $('#messageContainer').html('<div class="alert alert-danger">Hubo un error al actualizar el post. Por favor, intenta de nuevo.</div>');
+    }
     });
 });
-
-
+});
 </script>
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
 @endsection
