@@ -27,6 +27,7 @@
             <div class="form-group">
                 <label for="title">Title:</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ $post[0]['title'] }}" required>
+                <input type="hidden" class="form-control" id="no_post" name="no_post" value="{{ $post[0]['no_post'] }}">
             </div>
             <div class="form-group">
                 <label for="author">Author:</label>
@@ -60,6 +61,7 @@ $('#createPostForm').on('submit', function (e) {
 
     // Crear un objeto JavaScript con los datos del formulario.
     var postData = {
+        no_post: parseInt($('#no_post').val(), 10),
         title: $('#title').val(),
         author: $('#author').val(),
         content: $('#content').val(),
@@ -70,19 +72,23 @@ $('#createPostForm').on('submit', function (e) {
 
     console.log(postData);
 
+
     $.ajax({
+
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: "PATCH",
-        url: "http://localhost:3000/posts/" + {{ $post[0]['no_post'] }}, // Asegúrate de que esta es la URL correcta de tu API Laravel
-    data: JSON.stringify(postData),
-    contentType: "application/json",
-    dataType: 'json',
-    success: function (response) {
-        console.log("Success response:", response);
-        $('#messageContainer').html('<div class="alert alert-success">Post actualizado con éxito!</div>');
-    },
+        url: "http://localhost:3000/posts/",
+        data: JSON.stringify(postData),
+
+
+        contentType: "application/json",
+        dataType: 'json',
+        success: function (response) {
+            console.log("Success response:", response);
+            $('#messageContainer').html('<div class="alert alert-success">Post actualizado con éxito!</div>');
+        },
     error: function (error) {
         console.log("Error response:", error);
         $('#messageContainer').html('<div class="alert alert-danger">Hubo un error al actualizar el post. Por favor, intenta de nuevo.</div>');
