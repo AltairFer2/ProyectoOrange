@@ -28,7 +28,7 @@
                                 <span class="posted_on">{{ $post->created_at }}</span>
                                 <span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span>
                                 <p>{{ $post->content }}</p>
-                                <a href="#" class="btn btn-primary">Read More</a>
+                                <a href="{{ route('blog.details', $post->no_post)}}" class="btn btn-primary">Read More</a>
                                 <a href="{{ route('admin.posts.edit', $post->no_post) }}" class="btn btn-danger">
                                     <i class="fas fa-edit"></i>
                                 </a>
